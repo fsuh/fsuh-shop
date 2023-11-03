@@ -3,7 +3,7 @@ const Error = () => {
 	const error = useRouteError();
 	console.log(error);
 	if (isRouteErrorResponse(error)) {
-		if (error.status == 404) {
+		if (error.status === 404) {
 			return (
 				<main className="grid min-h-[100vh] place-items-center px-8">
 					<div className="text-center">

@@ -1,7 +1,7 @@
 import { Link, useLoaderData } from "react-router-dom";
 import { formatPrice } from "../utils";
 
-interface IProductAttributes {
+export interface IProductAttributes {
 	category: string;
 	title: string;
 	company: string;

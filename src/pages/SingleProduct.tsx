@@ -2,7 +2,19 @@ import { useLoaderData, LoaderFunction, Params } from "react-router-dom";
 import { formatPrice, customFetch, generateAmountOptions } from "../utils";
 import { Link } from "react-router-dom";
 import { ChangeEvent, useState } from "react";
-import { IProducts } from "../components/ProductsGrid";
+import { IProducts, IProductAttributes } from "../components/ProductsGrid";
+import { useDispatch } from "react-redux/es/exports";
+import { addItem } from "../features/cart/cartSlice";
+
+export type CartProducts = Pick<
+	IProductAttributes,
+	"image" | "title" | "price" | "company"
+> & {
+	cartID: string;
+	productID: number;
+	productColor: string;
+	amount: number;
+};
 
 export const loader: LoaderFunction = async ({
 	params,
@@ -28,6 +40,23 @@ const SingleProduct = () => {
 	const [amount, setAmount] = useState(1);
 	const handleAmount = (e: ChangeEvent<HTMLSelectElement>) => {
 		setAmount(parseInt(e.target.value, 10));
+	};
+
+	const cartProduct: CartProducts = {
+		cartID: product.id + productColor,
+		productID: product.id,
+		image,
+		title,
+		price,
+		company,
+		productColor,
+		amount,
+	};
+
+	const dispatch = useDispatch();
+
+	const addToCart = () => {
+		dispatch(addItem({ product: cartProduct }));
 	};
 	return (
 		<section>
@@ -101,7 +130,7 @@ const SingleProduct = () => {
 					<div className="mt-6">
 						<button
 							className="btn btn-secondary btn-md"
-							onClick={() => console.log("add to bag")}
+							onClick={addToCart}
 						>
 							Add to bag
 						</button>

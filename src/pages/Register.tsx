@@ -1,5 +1,34 @@
-import { Form, Link } from "react-router-dom";
+import { Form, Link, redirect } from "react-router-dom";
 import { FormInput, SubmitBtn } from "../components";
+import { customFetch } from "../utils";
+import { toast } from "react-toastify";
+import { AxiosError, isAxiosError } from "axios";
+
+export type ErrorResponse = {
+	error?: {
+		message?: string;
+	};
+};
+export const action = async ({ request }: { request: Request }) => {
+	const formData = await request.formData();
+	const data = Object.fromEntries(formData);
+	try {
+		await customFetch.post("/auth/local/register", data);
+		toast.success("account created successfully");
+		return redirect("/login");
+	} catch (error: unknown) {
+		if (isAxiosError(error)) {
+			const axiosError = error as AxiosError<ErrorResponse>;
+			const errorMessage =
+				axiosError.response?.data?.error?.message ||
+				"please double check your credentials";
+			toast.error(errorMessage);
+			return null;
+		} else {
+			return null;
+		}
+	}
+};
 const Register = () => {
 	return (
 		<section className="h-screen grid place-items-center">

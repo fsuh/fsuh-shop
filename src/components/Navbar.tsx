@@ -3,31 +3,16 @@ import { FaBarsStaggered } from "react-icons/fa6";
 import { NavLink } from "react-router-dom";
 import Logo from "../assets/fsuhLogo.png";
 import NavLinks from "./NavLinks";
-import { useState, useEffect } from "react";
 import { useSelector } from "react-redux/es/hooks/useSelector";
 import type { RootState } from "../store";
+import { useDispatch } from "react-redux/es/exports";
+import { toggleTheme } from "../features/user/userSlice";
 
-const themes = {
-	light: "corporate",
-	dark: "night",
-};
-
-const getThemeFromLocalStorage = () => {
-	return localStorage.getItem("theme" || themes.dark);
-};
 const Navbar = () => {
-	const [theme, setTheme] = useState(getThemeFromLocalStorage());
+	const dispatch = useDispatch();
 	const handleTheme = () => {
-		const { light, dark } = themes;
-		const newTheme = theme === light ? dark : light;
-		setTheme(newTheme);
+		dispatch(toggleTheme());
 	};
-
-	useEffect(() => {
-		document.documentElement.setAttribute("data-theme", theme!);
-		localStorage.setItem("theme", theme!);
-	}, [theme]);
-
 	const numItemsInCart = useSelector(
 		(state: RootState) => state.cart.numItemsInCart
 	);

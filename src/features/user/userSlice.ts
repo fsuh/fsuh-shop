@@ -15,7 +15,7 @@ import { toast } from "react-toastify";
 // }
 
 const themes = {
-	light: "corporate",
+	light: "winter",
 	dark: "night",
 };
 

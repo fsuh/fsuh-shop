@@ -6,7 +6,7 @@ export default {
 	},
 	// eslint-disable-next-line no-undef
 	plugins: [require("@tailwindcss/typography"), require("daisyui")],
-	daisyui:{
-		themes:['corporate','night']
-	}
+	daisyui: {
+		themes: ["winter", "night"],
+	},
 };

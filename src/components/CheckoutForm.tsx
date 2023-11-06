@@ -43,7 +43,11 @@ export const action =
 					axiosError.response?.data?.error?.message ||
 					"there was an error placing your order";
 				toast.error(errorMessage);
-				if (axiosError.response?.status === 401) return redirect("/login");
+				if (
+					axiosError.response?.status === 401 ||
+					axiosError.response?.status === 403
+				)
+					return redirect("/login");
 				return null;
 			} else {
 				return null;

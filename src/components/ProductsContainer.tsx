@@ -4,14 +4,14 @@ import { BsFillGridFill, BsList } from "react-icons/bs";
 import ProductsGrid from "./ProductsGrid";
 import ProductsList from "./ProductsList";
 
-interface IPagination {
+export interface IPagination {
 	page: number;
 	pageSize: number;
 	pageCount: number;
 	total: number;
 }
 
-type Meta = {
+export type Meta = {
 	categories: Array<string>;
 	companies: Array<string>;
 	pagination: IPagination;

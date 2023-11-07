@@ -19,14 +19,13 @@ export type CartProducts = Pick<
 export const loader: LoaderFunction = async ({
 	params,
 }: {
-	params: Params<string>;
+	params: Params;
 }) => {
 	const response = await customFetch(
 		`/products/${Number(Object.values(params))}`
 	);
-	//console.log(response);
+
 	const singleProduct = response.data.data;
-	//console.log(singleProduct);
 
 	return singleProduct;
 };
